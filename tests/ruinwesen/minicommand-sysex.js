@@ -14,11 +14,13 @@ var output = new MIDI.MIDIOutput('USB MIDI Device Port 1');
 var RWHeader = [0xf0, 0x00, 0x13, 0x79];
 
 /** CMD byte definitions **/
-var RW_CMD_SET_ENCODER_NAME = 0x01;
-var RW_CMD_SET_PAGE_NAME = 0x02;
-var RW_CMD_SET_ENCODER_CC = 0x03;
-var RW_CMD_SET_ENCODER_VALUE = 0x04;
-var RW_CMD_FLASH_STRING = 0x05;
+var RW_CMD = {
+  SET_ENCODER_NAME : 0x01,
+  SET_PAGE_NAME : 0x02,
+  SET_ENCODER_CC : 0x03,
+  SET_ENCODER_VALUE : 0x04,
+  FLASH_STRING : 0x05
+};
 
 
 /** Convert a string to a 0-terminated ASCII array. **/
@@ -39,21 +41,21 @@ function sendMidi() {
 
 /** Sysex encoding helpers **/
 function setEncoderName(enc, name) {
-  return [RW_CMD_SET_ENCODER_NAME, enc, name.toArray()];
+  return [RW_CMD.SET_ENCODER_NAME, enc, name.toArray()];
 }
 
 function setPageName(page, name) {
-  return [RW_CMD_SET_PAGE_NAME, page, name.toArray()];
+  return [RW_CMD.SET_PAGE_NAME, page, name.toArray()];
 }
 
 function setEncoderValue(enc, value) {
-  return [RW_CMD_SET_ENCODER_VALUE, enc, value];
+  return [RW_CMD.SET_ENCODER_VALUE, enc, value];
 }
 
 function setEncoderCC(enc, cc) {
-  return [RW_CMD_SET_ENCODER_CC, enc, cc];
+  return [RW_CMD.SET_ENCODER_CC, enc, cc];
 }
 
 function flashString(line, str) {
-  return [RW_CMD_FLASH_STRING, line, str.toArray()];
+  return [RW_CMD.FLASH_STRING, line, str.toArray()];
 }
